@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * The manager for {@link CustomEnchantment}
@@ -161,6 +160,8 @@ public class CustomEnchantmentManager implements Listener {
             }
         };
         registerEvent(InventoryClickEvent.class, eventPriority, event -> {
+            Optional.ofNullable(event.getCursor()).ifPresent(CustomEnchantmentManager::updateItem);
+            Optional.ofNullable(event.getCurrentItem()).ifPresent(CustomEnchantmentManager::updateItem);
             inventoryConsumer.accept(event.getInventory());
             inventoryConsumer.accept(event.getWhoClicked().getInventory());
         });
@@ -204,7 +205,7 @@ public class CustomEnchantmentManager implements Listener {
     public void unregister(Class<CustomEnchantment> enchantmentClass) {
         List<CustomEnchantment> toUnregister = registeredEnchantments.stream()
                 .filter(enchantment -> enchantment.getClass().equals(enchantmentClass))
-                .collect(Collectors.toList());
+                .toList();
         toUnregister.forEach(CustomEnchantmentManager::removeFromEnchantMap);
         registeredEnchantments.removeIf(toUnregister::contains);
     }

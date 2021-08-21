@@ -30,6 +30,9 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+ * The manager for {@link CustomEnchantment}
+ */
 public class CustomEnchantmentManager implements Listener {
     private static final Field BY_KEY;
     private static final Field BY_NAME;
@@ -58,6 +61,11 @@ public class CustomEnchantmentManager implements Listener {
     private final Plugin plugin;
     private final List<CustomEnchantment> registeredEnchantments = new ArrayList<>();
 
+    /**
+     * Create a new manager
+     *
+     * @param plugin the plugin
+     */
     public CustomEnchantmentManager(Plugin plugin) {
         this.plugin = plugin;
     }
@@ -80,6 +88,11 @@ public class CustomEnchantmentManager implements Listener {
         Enchantment.registerEnchantment(enchantment);
     }
 
+    /**
+     * Update the display of the current item
+     *
+     * @param itemStack the item
+     */
     public static void updateItem(ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null) {
@@ -114,10 +127,18 @@ public class CustomEnchantmentManager implements Listener {
         }, plugin);
     }
 
+    /**
+     * Set up the listeners
+     */
     public void setup() {
         setup(EventPriority.NORMAL);
     }
 
+    /**
+     * Set up the listeners
+     *
+     * @param eventPriority the event priority
+     */
     public void setup(EventPriority eventPriority) {
         // Enchant Item Event
         registerEvent(EnchantItemEvent.class, eventPriority, event -> updateItem(event.getItem()));
@@ -149,10 +170,18 @@ public class CustomEnchantmentManager implements Listener {
         });
     }
 
+    /**
+     * Unregister the listeners
+     */
     public void disable() {
         HandlerList.unregisterAll(this);
     }
 
+    /**
+     * Register the enchantment
+     *
+     * @param enchantmentClass the enchantment class
+     */
     public void register(Class<CustomEnchantment> enchantmentClass) {
         CustomEnchantment customEnchantment;
         try {
@@ -167,6 +196,11 @@ public class CustomEnchantmentManager implements Listener {
         addToEnchantMap(customEnchantment);
     }
 
+    /**
+     * Unregister the enchantment
+     *
+     * @param enchantmentClass the enchantment class
+     */
     public void unregister(Class<CustomEnchantment> enchantmentClass) {
         List<CustomEnchantment> toUnregister = registeredEnchantments.stream()
                 .filter(enchantment -> enchantment.getClass().equals(enchantmentClass))
@@ -175,11 +209,19 @@ public class CustomEnchantmentManager implements Listener {
         registeredEnchantments.removeIf(toUnregister::contains);
     }
 
+    /**
+     * Unregister all enchantments
+     */
     public void unregisterAll() {
         registeredEnchantments.forEach(CustomEnchantmentManager::removeFromEnchantMap);
         registeredEnchantments.clear();
     }
 
+    /**
+     * Get all registered enchantments
+     *
+     * @return the enchantments
+     */
     public List<CustomEnchantment> getRegisteredEnchantments() {
         return registeredEnchantments;
     }

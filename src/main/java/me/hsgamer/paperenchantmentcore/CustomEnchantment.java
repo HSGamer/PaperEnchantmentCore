@@ -27,6 +27,11 @@ public abstract class CustomEnchantment extends Enchantment {
         super(new NamespacedKey(plugin, key));
     }
 
+    /**
+     * Get the display name of the enchantment
+     *
+     * @return the component of the display name
+     */
     public abstract @NotNull Component displayName();
 
     @Override

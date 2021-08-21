@@ -1,7 +1,9 @@
-package me.hsgamer.paperenchantmentcore;
+package me.hsgamer.paperenchantmentcore.manager;
 
 import com.destroystokyo.paper.event.inventory.PrepareResultEvent;
+import me.hsgamer.paperenchantmentcore.enchantment.CustomEnchantment;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -33,6 +35,7 @@ import java.util.function.Consumer;
  * The manager for {@link CustomEnchantment}
  */
 public class CustomEnchantmentManager implements Listener {
+    private static final Component MAGIC_SUFFIX = Component.empty().color(TextColor.color(0xfa02ff)).append(Component.empty().color(TextColor.color(0x26b8ff)));
     private static final Field BY_KEY;
     private static final Field BY_NAME;
 
@@ -97,9 +100,8 @@ public class CustomEnchantmentManager implements Listener {
         if (itemMeta == null) {
             return;
         }
-        Component suffix = CustomEnchantment.MAGIC_SUFFIX;
         List<Component> lore = Optional.ofNullable(itemMeta.lore()).orElseGet(ArrayList::new);
-        lore.removeIf(c -> c.contains(suffix, Component.EQUALS));
+        lore.removeIf(c -> c.contains(MAGIC_SUFFIX, Component.EQUALS));
         if (!itemMeta.hasItemFlag(ItemFlag.HIDE_ENCHANTS)) {
             Map<Enchantment, Integer> enchantmentMap;
             if (itemMeta instanceof EnchantmentStorageMeta storageMeta) {
@@ -109,7 +111,7 @@ public class CustomEnchantmentManager implements Listener {
             }
             enchantmentMap.forEach((enchantment, level) -> {
                 if (enchantment instanceof CustomEnchantment customEnchantment) {
-                    Component component = customEnchantment.displayName(level).decoration(TextDecoration.ITALIC, false).append(suffix);
+                    Component component = customEnchantment.displayName(level).decoration(TextDecoration.ITALIC, false).append(MAGIC_SUFFIX);
                     lore.add(0, component);
                 }
             });

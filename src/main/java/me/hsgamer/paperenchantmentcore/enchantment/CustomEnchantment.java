@@ -1,8 +1,7 @@
-package me.hsgamer.paperenchantmentcore;
+package me.hsgamer.paperenchantmentcore.enchantment;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.Plugin;
@@ -21,8 +20,12 @@ import org.jetbrains.annotations.NotNull;
  * </pre>
  */
 public abstract class CustomEnchantment extends Enchantment {
-    public static final Component MAGIC_SUFFIX = Component.empty().color(TextColor.color(0xfa02ff)).append(Component.empty().color(TextColor.color(0x26b8ff)));
-
+    /**
+     * Create a new enchantment
+     *
+     * @param plugin the plugin
+     * @param key    the enchantment key
+     */
     protected CustomEnchantment(Plugin plugin, String key) {
         super(new NamespacedKey(plugin, key));
     }
@@ -43,5 +46,16 @@ public abstract class CustomEnchantment extends Enchantment {
         }
         component = component.color(this.isCursed() ? NamedTextColor.RED : NamedTextColor.GRAY);
         return component;
+    }
+
+    /**
+     * Get the translation key. Default is <code>enchantment.custom.%_plugin_%.%_key_%</code>
+     *
+     * @return the translation key
+     */
+    @Override
+    public @NotNull String translationKey() {
+        NamespacedKey namespacedKey = this.getKey();
+        return "enchantment.custom." + namespacedKey.getNamespace() + "." + namespacedKey.getKey();
     }
 }

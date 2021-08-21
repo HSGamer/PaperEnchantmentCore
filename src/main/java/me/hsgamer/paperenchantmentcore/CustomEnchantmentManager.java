@@ -114,7 +114,7 @@ public class CustomEnchantmentManager implements Listener {
                 }
             });
         }
-        itemMeta.lore(lore);
+        itemMeta.lore(lore.isEmpty() ? null : lore);
         itemStack.setItemMeta(itemMeta);
     }
 

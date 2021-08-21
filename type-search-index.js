@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"me.hsgamer.paperenchantmentcore","l":"CustomEnchantment"},{"p":"me.hsgamer.paperenchantmentcore","l":"CustomEnchantmentManager"}];updateSearchResults();

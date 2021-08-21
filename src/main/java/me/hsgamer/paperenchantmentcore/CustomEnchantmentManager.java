@@ -6,6 +6,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
@@ -104,7 +105,12 @@ public class CustomEnchantmentManager {
         List<Component> lore = Optional.ofNullable(itemMeta.lore()).orElseGet(ArrayList::new);
         lore.removeIf(c -> c.contains(suffix, Component.EQUALS));
         if (!itemMeta.hasItemFlag(ItemFlag.HIDE_ENCHANTS)) {
-            Map<Enchantment, Integer> enchantmentMap = itemMeta.getEnchants();
+            Map<Enchantment, Integer> enchantmentMap;
+            if (itemMeta instanceof EnchantmentStorageMeta storageMeta) {
+                enchantmentMap = storageMeta.getStoredEnchants();
+            } else {
+                enchantmentMap = itemMeta.getEnchants();
+            }
             enchantmentMap.forEach((enchantment, level) -> {
                 if (enchantment instanceof CustomEnchantment customEnchantment) {
                     Component component = customEnchantment.displayName(level).decoration(TextDecoration.ITALIC, false).append(suffix);

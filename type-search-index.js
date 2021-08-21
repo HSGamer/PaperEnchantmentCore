@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"me.hsgamer.paperenchantmentcore","l":"CustomEnchantment"},{"p":"me.hsgamer.paperenchantmentcore","l":"CustomEnchantmentManager"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"me.hsgamer.paperenchantmentcore.enchantment","l":"CustomEnchantment"},{"p":"me.hsgamer.paperenchantmentcore.manager","l":"CustomEnchantmentManager"},{"p":"me.hsgamer.paperenchantmentcore.enchantment","l":"TranslatableCustomEnchantment"}];updateSearchResults();

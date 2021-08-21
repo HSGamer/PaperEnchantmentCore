@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.hsgamer.paperenchantmentcore"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.hsgamer.paperenchantmentcore.enchantment"},{"l":"me.hsgamer.paperenchantmentcore.manager"}];updateSearchResults();

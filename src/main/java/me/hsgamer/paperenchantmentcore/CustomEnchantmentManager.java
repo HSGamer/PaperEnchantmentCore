@@ -183,10 +183,10 @@ public class CustomEnchantmentManager implements Listener {
      *
      * @param enchantmentClass the enchantment class
      */
-    public void register(Class<CustomEnchantment> enchantmentClass) {
+    public void register(Class<? extends CustomEnchantment> enchantmentClass) {
         CustomEnchantment customEnchantment;
         try {
-            Constructor<CustomEnchantment> constructor = enchantmentClass.getDeclaredConstructor(Plugin.class);
+            Constructor<? extends CustomEnchantment> constructor = enchantmentClass.getDeclaredConstructor(Plugin.class);
             customEnchantment = constructor.newInstance(this.plugin);
         } catch (NoSuchMethodException e) {
             throw new IllegalStateException("The enchantment class does not have a (Plugin) constructor");
@@ -202,7 +202,7 @@ public class CustomEnchantmentManager implements Listener {
      *
      * @param enchantmentClass the enchantment class
      */
-    public void unregister(Class<CustomEnchantment> enchantmentClass) {
+    public void unregister(Class<? extends CustomEnchantment> enchantmentClass) {
         List<CustomEnchantment> toUnregister = registeredEnchantments.stream()
                 .filter(enchantment -> enchantment.getClass().equals(enchantmentClass))
                 .toList();

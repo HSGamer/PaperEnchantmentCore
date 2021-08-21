@@ -50,18 +50,22 @@ public class CustomEnchantmentManager {
         this.plugin = plugin;
     }
 
-    private static void removeFromSearchMap(CustomEnchantment customEnchantment) {
+    private static void removeFromEnchantMap(Enchantment enchantment) {
         try {
             // noinspection unchecked
             Map<NamespacedKey, Enchantment> byKey = (Map<NamespacedKey, Enchantment>) BY_KEY.get(null);
             // noinspection unchecked
             Map<String, Enchantment> byName = (Map<String, Enchantment>) BY_NAME.get(null);
 
-            byKey.entrySet().removeIf(entry -> entry.getValue().equals(customEnchantment));
-            byName.entrySet().removeIf(entry -> entry.getValue().equals(customEnchantment));
+            byKey.entrySet().removeIf(entry -> entry.getValue().equals(enchantment));
+            byName.entrySet().removeIf(entry -> entry.getValue().equals(enchantment));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void addToEnchantMap(Enchantment enchantment) {
+        Enchantment.registerEnchantment(enchantment);
     }
 
     public void register(Class<CustomEnchantment> enchantmentClass) {
@@ -75,19 +79,19 @@ public class CustomEnchantmentManager {
             throw new IllegalStateException("Cannot create instance for " + enchantmentClass.getName(), e);
         }
         this.registeredEnchantments.add(customEnchantment);
-        Enchantment.registerEnchantment(customEnchantment);
+        addToEnchantMap(customEnchantment);
     }
 
     public void unregister(Class<CustomEnchantment> enchantmentClass) {
         List<CustomEnchantment> toUnregister = registeredEnchantments.stream()
                 .filter(enchantment -> enchantment.getClass().equals(enchantmentClass))
                 .collect(Collectors.toList());
-        toUnregister.forEach(CustomEnchantmentManager::removeFromSearchMap);
+        toUnregister.forEach(CustomEnchantmentManager::removeFromEnchantMap);
         registeredEnchantments.removeIf(toUnregister::contains);
     }
 
     public void unregisterAll() {
-        registeredEnchantments.forEach(CustomEnchantmentManager::removeFromSearchMap);
+        registeredEnchantments.forEach(CustomEnchantmentManager::removeFromEnchantMap);
         registeredEnchantments.clear();
     }
 

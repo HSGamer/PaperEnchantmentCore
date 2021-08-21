@@ -8,10 +8,22 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A custom enchantment.
+ * Should have a Plugin constructor.
+ * Example:
+ * <pre>
+ *     public class TestEnchantment extends CustomEnchantment {
+ *         public TestEnchantment(Plugin plugin) {
+ *             super(plugin, "test");
+ *         }
+ *     }
+ * </pre>
+ */
 public abstract class CustomEnchantment extends Enchantment {
     public static final Component MAGIC_SUFFIX = Component.space().color(TextColor.color(0xfa02ff)).append(net.kyori.adventure.text.Component.space().color(TextColor.color(0x26b8ff)));
 
-    public CustomEnchantment(Plugin plugin, String key) {
+    protected CustomEnchantment(Plugin plugin, String key) {
         super(new NamespacedKey(plugin, key));
     }
 

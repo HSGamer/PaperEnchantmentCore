@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * </pre>
  */
 public abstract class CustomEnchantment extends Enchantment {
-    public static final Component MAGIC_SUFFIX = Component.space().color(TextColor.color(0xfa02ff)).append(net.kyori.adventure.text.Component.space().color(TextColor.color(0x26b8ff)));
+    public static final Component MAGIC_SUFFIX = Component.empty().color(TextColor.color(0xfa02ff)).append(Component.empty().color(TextColor.color(0x26b8ff)));
 
     protected CustomEnchantment(Plugin plugin, String key) {
         super(new NamespacedKey(plugin, key));

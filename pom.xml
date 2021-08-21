@@ -8,12 +8,16 @@
     <artifactId>PaperEnchantmentCore</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>PaperEnchantmentCore</name>
+    <description>An Enchantment Core for Paper (and its forks) servers</description>
+
     <properties>
         <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

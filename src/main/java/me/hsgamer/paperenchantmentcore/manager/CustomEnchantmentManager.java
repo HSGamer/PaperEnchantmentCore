@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
@@ -143,6 +144,7 @@ public class CustomEnchantmentManager implements Listener {
     public void setup(EventPriority eventPriority) {
         // Enchant Item Event
         registerEvent(EnchantItemEvent.class, eventPriority, event -> updateItem(event.getItem()));
+        registerEvent(PrepareItemEnchantEvent.class, eventPriority, event -> updateItem(event.getItem()));
 
         // Prepare Result Event
         registerEvent(PrepareResultEvent.class, eventPriority, event -> {

@@ -10,3 +10,5 @@
   * [ ] Shoot
   * [ ] Death
   * [ ] Targeted
+* [ ] Enchantment Table
+* [ ] Enchantment Anvil

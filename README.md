@@ -1,3 +1,5 @@
+# MOVED TO [ZEnchantmentCore](https://github.com/zivoric/ZEnchantmentCore)
+
 # Things to do
 * [x] Display custom enchantments on EnchantItemEvent
 * [x] Display custom enchantments on PrepareResultEvent
